@@ -23,7 +23,7 @@ def app():
     thread_messages = client.beta.threads.messages.list(thread_id, order="asc")
 
     # 페이지 제목
-    st.header("전기 분야 매뉴얼 검색기")
+    st.subheader(":blue[전기 분야] :gray[안전점검 매뉴얼 Chatbot]")
 
     # 메세지 역순으로 가져와 UI 에 입력
     for msg in thread_messages.data:
@@ -31,7 +31,7 @@ def app():
             st.write(msg.content[0].text.value)
 
     # 입력창에 입력을 받아 입력된 내용으로 메세지 생성        
-    prompt = st.chat_input("물어보고 싶은 것을 입력하세요!")
+    prompt = st.chat_input("[전기] 질문을 입력하세요!")
     if prompt:
         message = client.beta.threads.messages.create(
             thread_id=thread_id,
@@ -41,7 +41,7 @@ def app():
         
         # 입력한 메세지 UI에 표시
         with st.chat_message(message.role):
-            st.write(message.content[0].text.value)
+            st.write("[전기] " + message.content[0].text.value)
         
         # Run 돌리기
         run = client.beta.threads.runs.create(
@@ -66,3 +66,4 @@ def app():
         # 마지막 메세지 UI에 추가하기
         with st.chat_message(messages.data[0].role):
             st.write(messages.data[0].content[0].text.value)
+
