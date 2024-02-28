@@ -26,7 +26,7 @@ class MultiApp:
         st.divider()
 
         with st.sidebar:   
-            st.image('manualimage.png')
+            st.image('manualimage.PNG')
             st.header("About")
             st.markdown("매뉴얼 내용과 KFS 기반으로 답변합니다")
             st.markdown("[안전점검매뉴얼 11판 994 Page]")
