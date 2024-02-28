@@ -41,7 +41,7 @@ def app():
         
         # 입력한 메세지 UI에 표시
         with st.chat_message(message.role):
-            st.write("[건축] " + message.content[0].text.value)
+            st.write("[KFS] " + message.content[0].text.value)
         
         # Run 돌리기
         run = client.beta.threads.runs.create(
