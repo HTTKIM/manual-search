@@ -50,14 +50,19 @@ def app():
             assistant_id=assistant_id,
         )
         
-        with st.spinner('답변을 생성하고 있습니다...'):
-            
+        counter = 0  # 상태 확인 카운터 초기화        
+        with st.spinner('답변을 생성하고 있습니다...'):            
             while run.status != "completed":
-                time.sleep(0.5)
                 run = client.beta.threads.runs.retrieve(
                     thread_id=thread_id,
                     run_id=run.id
                 )
+                if run.status == 'completed':
+                    break
+                if counter % 5 == 0:  # 매 5회 확인마다 run의 상태를 출력
+                    print(f"\t\t{run}")
+                counter += 1
+                time.sleep(1)  # 상태 확인 간 1초 대기   
         
         # While 문 완료 후 메세지 불러오기
         messages = client.beta.threads.messages.list(
