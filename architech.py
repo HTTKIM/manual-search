@@ -57,10 +57,10 @@ def app():
                 )
                 if run.status == 'completed':
                     break
-                if counter % 5 == 0:  # 매 10회 확인마다 run의 상태를 출력
+                if counter % 10 == 0:  # 매 10회 확인마다 run의 상태를 출력
                     print(f"\t\t{run}")
                 counter += 1
-                time.sleep(1)  # 상태 확인 간 1초 대기    
+                time.sleep(5)  # 상태 확인 간 5초 대기    
                 
         # While 문 완료 후 메세지 불러오기
         messages = client.beta.threads.messages.list(
