@@ -62,9 +62,9 @@ class MultiApp:
                 hazard.app()
             if app == "KFS":
                 kfs.app()
-            if app == "법(건축 및 가스)":
+            if app == "법령(건축 및 가스)":
                 law_1.app()
-            if app == "법(건축 및 가스)":
+            if app == "법령(화보법)":
                 law_fire.app()
 
 if __name__ == "__main__":
