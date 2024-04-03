@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu 
 
 # Python 파일의 이름을 import
-import architech, electric, gas, fireprotection, hazard, kfs, law_1
+import architech, electric, gas, fireprotection, hazard, kfs, law_1, law_fire
 
 # 페이지 설정
 st.set_page_config(page_title="KFPA Manual", page_icon="emb.png")
@@ -34,8 +34,8 @@ class MultiApp:
             st.header("Select Manual")
             app = option_menu(
                 menu_title='안전점검 매뉴얼',
-                options=['분야를 선택하세요', '건축 피난','전기','가스','소방시설','위험물', 'KFS', '법(건축 및 가스)'],
-                icons=['','buildings','plug', 'cloud-fog2','shield','droplet-fill','book', 'journal-text'],
+                options=['분야를 선택하세요', '건축 피난','전기','가스','소방시설','위험물', 'KFS', '법령(건축 및 가스)', '법령(화보법)'],
+                icons=['','buildings','plug', 'cloud-fog2','shield','droplet-fill','book', 'journals', 'journals'],
                 menu_icon='list-task',
                 default_index=0,
                 styles={
@@ -64,6 +64,8 @@ class MultiApp:
                 kfs.app()
             if app == "법(건축 및 가스)":
                 law_1.app()
+            if app == "법(건축 및 가스)":
+                law_fire.app()
 
 if __name__ == "__main__":
     app = MultiApp()
