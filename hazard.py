@@ -65,7 +65,7 @@ def app():
         
         # 입력한 메세지 UI에 표시
         with st.chat_message(message.role):
-            st.write("[법령(건축 및 가스)] " + message.content[0].text.value)
+            st.write("[위험물] " + message.content[0].text.value)
         
 
         with client.beta.threads.runs.stream(
