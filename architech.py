@@ -41,32 +41,13 @@ def app():
         
         # 입력한 메세지 UI에 표시
         with st.chat_message(message.role):
-            st.write("[건축] " + message.content[0].text.value)
+            st.write("[법령(건축 및 가스)] " + message.content[0].text.value)
         
-        # Run 돌리기
-        run = client.beta.threads.runs.create(
+
+        with client.beta.threads.runs.stream(
             thread_id=thread_id,
             assistant_id=assistant_id,
-        )
-        counter = 0  # 상태 확인 카운터 초기화        
-        with st.spinner('답변을 생성하고 있습니다...'):            
-            while run.status != "completed":
-                run = client.beta.threads.runs.retrieve(
-                    thread_id=thread_id,
-                    run_id=run.id
-                )
-                if run.status == 'completed':
-                    break
-                if counter % 10 == 0:  # 매 10회 확인마다 run의 상태를 출력
-                    print(f"\t\t{run}")
-                counter += 1
-                time.sleep(5)  # 상태 확인 간 5초 대기    
-                
-        # While 문 완료 후 메세지 불러오기
-        messages = client.beta.threads.messages.list(
-            thread_id=thread_id   
-        )
-        
-        # 마지막 메세지 UI에 추가하기
-        with st.chat_message(messages.data[0].role):
-            st.write(messages.data[0].content[0].text.value)
+            event_handler=EventHandler(),
+            ) as stream:
+            st.write_stream(stream.text_deltas)
+            stream.until_done()
