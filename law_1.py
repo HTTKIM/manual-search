@@ -68,18 +68,11 @@ def app():
             st.write("[법령(건축 및 가스)] " + message.content[0].text.value)
         
 
-        with client.beta.threads.runs.create_and_stream(
+        with client.beta.threads.runs.stream(
             thread_id=thread_id,
             assistant_id=assistant_id,
             event_handler=EventHandler(),
             ) as stream:
-            st.write(stream.until_done())
+            st.write_stream(stream.text_deltas)
+            stream.until_done()
         
-        # # While 문 완료 후 메세지 불러오기
-        # messages = client.beta.threads.messages.list(
-        #     thread_id=thread_id   
-        # )
-        
-        # # 마지막 메세지 UI에 추가하기
-        # with st.chat_message(messages.data[0].role):
-        #     st.write(messages.data[0].content[0].text.value)
